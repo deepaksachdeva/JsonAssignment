@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.assignment.pojo.ListResponse
@@ -23,6 +24,7 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), RecyclerViewAdapter.ClickListener {
 
+    private var toolbar: Toolbar? = null
     private var recyclerView: RecyclerView? = null
     var mainActivityComponent: MainActivityComponent? = null
 
@@ -44,6 +46,11 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.ClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //getting the toolbar
+        toolbar = findViewById(R.id.toolbar) as Toolbar
+
+        setToolbarTitle("")
+
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView?.setLayoutManager(LinearLayoutManager(this@MainActivity))
 
@@ -56,8 +63,9 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.ClickListener {
         mainActivityComponent?.injectMainActivity(this)
         recyclerView?.setAdapter(recyclerViewAdapter)
 
-        apiInterface.getPeople().enqueue(object : Callback<ListResponse> {
+        apiInterface.getRows().enqueue(object : Callback<ListResponse> {
             override fun onResponse(call: Call<ListResponse>, response: Response<ListResponse>) {
+                setToolbarTitle(response.body()!!.title)
                 populateRecyclerView(response.body()!!.rows)
             }
 
@@ -73,6 +81,14 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.ClickListener {
 
     override fun launchIntent(filmName: String) {
         Toast.makeText(mContext, "RecyclerView Row selected", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun setToolbarTitle(title: String){
+        //setting the title
+        toolbar?.title = title
+
+        //placing toolbar in place of actionbar
+        setSupportActionBar(toolbar)
     }
 }
 
