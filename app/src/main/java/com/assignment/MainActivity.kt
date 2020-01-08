@@ -73,7 +73,6 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.ClickListener {
 
     override fun launchIntent(filmName: String) {
         Toast.makeText(mContext, "RecyclerView Row selected", Toast.LENGTH_SHORT).show()
-//        startActivity(Intent(activityContext, DetailActivity::class.java).putExtra("url", url))
     }
 }
 

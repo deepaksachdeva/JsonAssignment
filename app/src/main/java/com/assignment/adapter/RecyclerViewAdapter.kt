@@ -44,20 +44,17 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
 
         val txtName: TextView
         val txtBirthYear: TextView
-        val constraintLayoutContainer: LinearLayout
+        val linearLayout: LinearLayout
 
         init {
-
             txtName = itemView.findViewById(R.id.txtName)
             txtBirthYear = itemView.findViewById(R.id.txtBirthYear)
-            constraintLayoutContainer = itemView.findViewById(R.id.constraintLayout)
+            linearLayout = itemView.findViewById(R.id.constraintLayout)
 
-            constraintLayoutContainer.setOnClickListener {
-//                clickListener.launchIntent(
-//                    data[adapterPosition].films.get(
-//                        0
-//                    )
-//                )
+            linearLayout.setOnClickListener {
+                clickListener.launchIntent(
+                    data[adapterPosition].title
+                )
             }
         }
     }
