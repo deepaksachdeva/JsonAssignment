@@ -1,4 +1,4 @@
-package com.jsonexcercise.di.modules
+package com.assignment.di.modules
 
 import android.content.Context
 import com.assignment.MainActivity
