@@ -1,6 +1,7 @@
 package com.assignment.di.modules
 
 import com.assignment.di.scopes.ApplicationScope
+import com.assignment.retrofit.APIInterface
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -10,6 +11,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 class RetrofitModule {
+
+    @Provides
+    @ApplicationScope
+    fun getApiInterface(retroFit: Retrofit): APIInterface {
+        return retroFit.create<APIInterface>(APIInterface::class.java)
+    }
 
     @Provides
     @ApplicationScope
