@@ -8,5 +8,5 @@ public class Row {
     @SerializedName("description")
     public String description;
     @SerializedName("imageHref")
-    public Object imageHref;
+    public String imageHref;
 }

@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.ClickListener {
 
     private var toolbar: Toolbar? = null
     private var recyclerView: RecyclerView? = null
-    var mainActivityComponent: MainActivityComponent? = null
+    private var mainActivityComponent: MainActivityComponent? = null
 
     @Inject
     lateinit var recyclerViewAdapter: RecyclerViewAdapter
@@ -47,12 +47,12 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.ClickListener {
         setContentView(R.layout.activity_main)
 
         //getting the toolbar
-        toolbar = findViewById(R.id.toolbar) as Toolbar
+        toolbar = findViewById<Toolbar>(R.id.toolbar)
 
         setToolbarTitle("")
 
         recyclerView = findViewById(R.id.recyclerView)
-        recyclerView?.setLayoutManager(LinearLayoutManager(this@MainActivity))
+        recyclerView?.layoutManager = LinearLayoutManager(this@MainActivity)
 
         val applicationComponent = MyApplication.get(this).getApplicationComponen()
         mainActivityComponent = DaggerMainActivityComponent.builder()
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.ClickListener {
             .build()
 
         mainActivityComponent?.injectMainActivity(this)
-        recyclerView?.setAdapter(recyclerViewAdapter)
+        recyclerView?.adapter = recyclerViewAdapter
 
         apiInterface.getRows().enqueue(object : Callback<ListResponse> {
             override fun onResponse(call: Call<ListResponse>, response: Response<ListResponse>) {

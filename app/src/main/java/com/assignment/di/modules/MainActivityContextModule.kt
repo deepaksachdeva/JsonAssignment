@@ -30,5 +30,4 @@ class MainActivityContextModule {
     fun provideContext(): Context {
         return context
     }
-
 }

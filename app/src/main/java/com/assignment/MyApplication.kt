@@ -7,7 +7,7 @@ import com.assignment.di.components.DaggerApplicationComponent
 import com.assignment.di.modules.ContextModule
 
 class MyApplication : Application() {
-    var applicationComponent: ApplicationComponent? = null
+    private var applicationComponent: ApplicationComponent? = null
 
     override fun onCreate() {
         super.onCreate()
