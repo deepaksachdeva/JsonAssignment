@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.assignment.R
 import com.assignment.pojo.Row
+import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import java.util.ArrayList
 import javax.inject.Inject
@@ -45,6 +46,7 @@ class RecyclerViewAdapter @Inject constructor(picasso: Picasso, clickListener: C
 
         Picasso.with(holder.imageView.context)
             .load(data!![position].imageHref)
+            .networkPolicy(NetworkPolicy.OFFLINE)
             .placeholder(R.mipmap.ic_launcher)
             .into(holder.imageView)
     }
@@ -72,5 +74,9 @@ class RecyclerViewAdapter @Inject constructor(picasso: Picasso, clickListener: C
     fun setData(data: List<Row>) {
         this.data?.addAll(data)
         notifyDataSetChanged()
+    }
+
+    fun getData(): MutableList<Row>? {
+        return data
     }
 }
